@@ -112,13 +112,20 @@ namespace AparPDFAPI.Controllers
                         docnm = oListItem1["FileLeafRef"].ToString();
                         var docId = oListItem1["ID"].ToString();
                         var FileTypename = oListItem1["FileType"].ToString();
-                         string[] Type = docnm.Split('.');
 
-                         var Filenm = Type[0].ToString();
-                         var Exttype = Type[1].ToString();
-                         //file = context.Web.GetFileByServerRelativeUrl(path);
+                        string ImgName = docnm;
+                        int lastIndex = ImgName.LastIndexOf('.');
+                        var Filenm = ImgName.Substring(0, lastIndex);
+                        //var ext = ImgName.Substring(lastIndex + 1);
+                        var Exttype = oListItem1["File_x0020_Type"].ToString();
 
-                         if (Exttype != "pdf" && Exttype != "PDF")
+                        //string[] Type = docnm.Split('.');
+
+                        //var Filenm = Type[0].ToString();
+                        //var Exttype = Type[1].ToString();
+                        //file = context.Web.GetFileByServerRelativeUrl(path);
+
+                        if (Exttype != "pdf" && Exttype != "PDF")
                          {
 
                              using (MemoryStream ms = new MemoryStream())

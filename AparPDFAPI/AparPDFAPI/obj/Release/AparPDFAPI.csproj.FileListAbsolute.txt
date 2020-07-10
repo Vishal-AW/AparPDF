@@ -65,3 +65,36 @@ E:\AW Project\Project\Apar\Working PDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDF
 E:\AW Project\Project\Apar\Working PDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.csproj.CopyComplete
 E:\AW Project\Project\Apar\Working PDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.dll
 E:\AW Project\Project\Apar\Working PDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.pdb
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\AparPDFAPI.dll.config
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\AparPDFAPI.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\AparPDFAPI.pdb
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Antlr3.Runtime.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Microsoft.Web.Infrastructure.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Newtonsoft.Json.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Net.Http.Formatting.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Helpers.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Http.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Http.WebHost.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Mvc.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Optimization.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Razor.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Deployment.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Razor.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\WebGrease.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Newtonsoft.Json.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Net.Http.Formatting.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Helpers.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Http.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Http.WebHost.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Mvc.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Optimization.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.Razor.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Deployment.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Razor.xml
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Antlr3.Runtime.pdb
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.csprojAssemblyReference.cache
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.csproj.CopyComplete
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.dll
+E:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.pdb

@@ -26,19 +26,18 @@ namespace AparPDFAPI.Controllers
     public class PurchaseController : ApiController
     {
         [HttpGet]
-        [Route("api/PDFImageNew/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{PONumber}/{PODisplayNo}/{UserType}")]
-        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string PONumber, string PODisplayNo, string UserType)
+        [Route("api/PDFImageNew/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{PONumber}/{PODisplayNo}/{UserType}/{letterheadType}")]
+        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string PONumber, string PODisplayNo, string UserType, string letterheadType)
         {
 
             string Action = ActionName;
-            //LoginName = "SP User2";
-            // PONumber = "62";
-            //PONumber = "32";
             string User = LoginName;
             string POnum = PONumber;
             string DispayPO = PODisplayNo;
             string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
-            // string UserType = "Head";
+            string letterhead = letterheadType;
+
+           
 
             string login = "sp.admin@apar.com"; //give your username here  
             string PurchaseText = ConfigurationManager.AppSettings["PurchaseText"];
@@ -112,11 +111,14 @@ namespace AparPDFAPI.Controllers
                         docnm = oListItem1["FileLeafRef"].ToString();
                         var docId = oListItem1["ID"].ToString();
                         var FileTypename = oListItem1["FileType"].ToString();
-                        string[] Type = docnm.Split('.');
 
-                        var Filenm = Type[0].ToString();
-                        var Exttype = Type[1].ToString();
-                        //file = context.Web.GetFileByServerRelativeUrl(path);
+
+                        string ImgName = docnm;
+                        int lastIndex = ImgName.LastIndexOf('.');
+                        var Filenm = ImgName.Substring(0, lastIndex);
+                       
+                        var Exttype = oListItem1["File_x0020_Type"].ToString();
+                       
 
                         if (Exttype != "pdf" && Exttype != "PDF")
                         {
@@ -253,9 +255,523 @@ namespace AparPDFAPI.Controllers
                         contextimage.ExecuteQuery();
                         #endregion
 
+                        int[] PO_X = new int[10];
+                        int[] PO_Y = new int[10];
 
-                        //TcpClient socketConnection;
-                        //socketConnection = new TcpClient("localhost", 49335);  	
+                        int[] OT_X = new int[10];
+                        int[] OT_Y = new int[10];
+
+                        #region ENIDept
+                        if (letterhead == "ENIDept")
+                        {
+                            if (UserType == "Head")
+                            {
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = 15; PO_Y[0] = 216;
+                                    PO_X[1] = 15; PO_Y[1] = 173;
+                                    PO_X[2] = 15; PO_Y[2] = 162;
+                                    PO_X[3] = 15; PO_Y[3] = 153;
+                                    PO_X[4] = 15; PO_Y[4] = 145;
+                                }
+                                else
+                                {
+                                    PO_X[0] = 15; PO_Y[0] = 235;
+                                    PO_X[1] = 15; PO_Y[1] = 225;
+                                    PO_X[2] = 15; PO_Y[2] = 182;
+                                    PO_X[3] = 15; PO_Y[3] = 171;
+                                    PO_X[4] = 15; PO_Y[4] = 162;
+                                    PO_X[5] = 15; PO_Y[5] = 153;
+                                    PO_X[6] = 15; PO_Y[6] = 145;
+
+                                }
+                            }
+                            if (UserType == "Head1")
+                            {
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = 130; PO_Y[0] = 216;
+                                    PO_X[1] = 130; PO_Y[1] = 173;
+                                    PO_X[2] = 130; PO_Y[2] = 162;
+                                    PO_X[3] = 130; PO_Y[3] = 153;
+                                    PO_X[4] = 130; PO_Y[4] = 145;
+                                }
+                                else
+                                {
+                                    PO_X[0] = 130; PO_Y[0] = 235;
+                                    PO_X[1] = 130; PO_Y[1] = 225;
+                                    PO_X[2] = 130; PO_Y[2] = 182;
+                                    PO_X[3] = 130; PO_Y[3] = 171;
+                                    PO_X[4] = 130; PO_Y[4] = 162;
+                                    PO_X[5] = 130; PO_Y[5] = 153;
+                                    PO_X[6] = 130; PO_Y[6] = 145;
+
+                                }
+                            }
+
+                            if (UserType == "Head2")
+                            {
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = 245; PO_Y[0] = 216;
+                                    PO_X[1] = 245; PO_Y[1] = 173;
+                                    PO_X[2] = 245; PO_Y[2] = 162;
+                                    PO_X[3] = 245; PO_Y[3] = 153;
+                                    PO_X[4] = 245; PO_Y[4] = 145;
+                                }
+                                else
+                                {
+                                    PO_X[0] = 245; PO_Y[0] = 235;
+                                    PO_X[1] = 245; PO_Y[1] = 225;
+                                    PO_X[2] = 245; PO_Y[2] = 182;
+                                    PO_X[3] = 245; PO_Y[3] = 171;
+                                    PO_X[4] = 245; PO_Y[4] = 162;
+                                    PO_X[5] = 245; PO_Y[5] = 153;
+                                    PO_X[6] = 245; PO_Y[6] = 145;
+
+                                }
+                                }
+
+                            if (UserType == "Head3")
+                            {
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = 360; PO_Y[0] = 216;
+                                    PO_X[1] = 360; PO_Y[1] = 173;
+                                    PO_X[2] = 360; PO_Y[2] = 162;
+                                    PO_X[3] = 360; PO_Y[3] = 153;
+                                    PO_X[4] = 360; PO_Y[4] = 145;
+                                }
+                                else
+                                {
+                                    PO_X[0] = 360; PO_Y[0] = 235;
+                                    PO_X[1] = 360; PO_Y[1] = 225;
+                                    PO_X[2] = 360; PO_Y[2] = 182;
+                                    PO_X[3] = 360; PO_Y[3] = 171;
+                                    PO_X[4] = 360; PO_Y[4] = 162;
+                                    PO_X[5] = 360; PO_Y[5] = 153;
+                                    PO_X[6] = 360; PO_Y[6] = 145;
+
+                                }
+                            }
+
+                            if (UserType == "Head4")
+                            {
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = 475; PO_Y[0] = 216;
+                                    PO_X[1] = 475; PO_Y[1] = 173;
+                                    PO_X[2] = 475; PO_Y[2] = 162;
+                                    PO_X[3] = 475; PO_Y[3] = 153;
+                                    PO_X[4] = 476; PO_Y[4] = 145;
+                                }
+                                else
+                                {
+                                    PO_X[0] = 475; PO_Y[0] = 235;
+                                    PO_X[1] = 475; PO_Y[1] = 225;
+                                    PO_X[2] = 475; PO_Y[2] = 182;
+                                    PO_X[3] = 475; PO_Y[3] = 171;
+                                    PO_X[4] = 475; PO_Y[4] = 162;
+                                    PO_X[5] = 475; PO_Y[5] = 153;
+                                    PO_X[6] = 475; PO_Y[6] = 145;
+
+                                }
+                            }
+
+                        }
+
+
+                        #endregion
+                 
+                        #region ENI
+                        if (letterhead == "ENI")
+                        {
+                            if (UserType == "Head")
+                            {
+                                int x = 15;
+                                if (FileType == "PO")
+                                { 
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+                                    
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head1")
+                            {
+                                int x = 130;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head2")
+                            {
+                                int x = 245;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head3")
+                            {
+                                int x = 360;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                       
+                            if (UserType == "Head4")
+                            {
+                                int x = 475;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                        }
+
+
+                        #endregion
+
+                        #region CP
+                        if (letterhead == "CP")
+                        {
+                            if (UserType == "Head")
+                            {
+                                int x = 15;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head1")
+                            {
+                                int x = 130;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head2")
+                            {
+                                int x = 245;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head3")
+                            {
+                                int x = 360;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+
+                            if (UserType == "Head4")
+                            {
+                                int x = 475;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                        }
+
+
+                        #endregion
+
+                        #region Silvassa
+                        if (letterhead == "Silvassa")
+                        {
+                            if (UserType == "Head")
+                            {
+                                int x = 15;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head1")
+                            {
+                                int x = 130;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head2")
+                            {
+                                int x = 245;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                            if (UserType == "Head3")
+                            {
+                                int x = 360;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+
+                            if (UserType == "Head4")
+                            {
+                                int x = 475;
+                                if (FileType == "PO")
+                                {
+                                    PO_X[0] = x; PO_Y[0] = 177;
+                                    PO_X[1] = x; PO_Y[1] = 134;
+                                    PO_X[2] = x; PO_Y[2] = 126;
+                                    PO_X[3] = x; PO_Y[3] = 117;
+                                    PO_X[4] = x; PO_Y[4] = 110;
+                                }
+                                else
+                                {
+
+                                    PO_X[0] = x; PO_Y[0] = 195;
+                                    PO_X[1] = x; PO_Y[1] = 188;
+                                    PO_X[2] = x; PO_Y[2] = 145;
+                                    PO_X[3] = x; PO_Y[3] = 134;
+                                    PO_X[4] = x; PO_Y[4] = 126;
+                                    PO_X[5] = x; PO_Y[5] = 117;
+                                    PO_X[6] = x; PO_Y[6] = 110;
+
+                                }
+                            }
+                        }
+
+
+                        #endregion
+
+
+
                         System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
                         System.IO.MemoryStream imageStream = new System.IO.MemoryStream();
 
@@ -289,123 +805,40 @@ namespace AparPDFAPI.Controllers
 
                                 DateTime dateTime = DateTime.Now;
 
-                                var blackListTextFont = FontFactory.GetFont("Arial", 8, Color.BLACK);
-                                // add image
+                                var blackListTextFont = FontFactory.GetFont("Arial", 6, Color.BLACK);
+                                    // add image
 
-                                if (UserType == "Head")
-                                {
+
                                     if (FileType == "PO")
                                     {
-
-
-
-                                        // var titleChunk = new Chunk(PurchaseText, blackListTextFont);
-
-
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), 20, 178, 0);
-                                        //iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        //sigimage.SetAbsolutePosition(20, 135);
-                                        //pbover.AddImage(sigimage);
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), 20, 125, 0);
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont) ), 20, 116, 0);
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont) ), 20, 108, 0);
-
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), 20, 216, 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
                                         iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(20, 173);
+                                        sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
                                         pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), 20, 162, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), 20, 153, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), 20, 145, 0);
-
-
-
-
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
+                                        if (UserType == "Head")
+                                        {
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[4], PO_Y[4], 0);
+                                        }
                                     }
                                     else
                                     {
-                                        //DispayPO                                 
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(DispayPO), 20, 200, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(ActionName), 20, 185, 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(DispayPO, blackListTextFont)), PO_X[0], PO_Y[0], 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(ActionName, blackListTextFont)), PO_X[1], PO_Y[1], 0);
                                         iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(20, 135);
+                                        sigimage.SetAbsolutePosition(PO_X[2], PO_Y[2]);
                                         pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(User), 20, 120, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Comments), 20, 103, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Convert.ToString(dateTime)), 20, 85, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(footer), 20, 70, 0);
-
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[3], PO_Y[3], 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Comments, blackListTextFont)), PO_X[4], PO_Y[4], 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[5], PO_Y[5], 0);
+                                        if (UserType == "Head")
+                                        {
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[6], PO_Y[6], 0);
+                                        }
                                     }
-                                }
-
-                                if (UserType == "PlantHead")
-                                {
-                                    if (FileType == "PO")
-                                    {
-
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), 200, 178, 0);
-                                        //iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        //sigimage.SetAbsolutePosition(200, 135);
-                                        //pbover.AddImage(sigimage);
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), 200, 125, 0);
-                                        //ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont) ), 200, 116, 0);
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), 200, 216, 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(200, 173);
-                                        pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), 200, 162, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), 200, 153, 0);
-
-
-                                    }
-                                    else
-                                    {
-                                        //DispayPO
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(DispayPO), 200, 200, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(ActionName), 200, 185, 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(200, 135);
-                                        pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(User), 200, 120, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Comments), 200, 103, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Convert.ToString(dateTime)), 200, 85, 0);
-                                    }
-
-
-                                }
-
-                                if (UserType == "CMD")
-                                {
-                                    if (FileType == "PO")
-                                    {
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), 400, 216, 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(400, 173);
-                                        pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), 400, 162, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), 400, 153, 0);
-
-                                    }
-                                    else
-                                    {
-                                        //DispayPO
-
-
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(DispayPO), 400, 200, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(ActionName), 400, 185, 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(400, 135);
-                                        pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(User), 400, 120, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Comments), 400, 103, 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(Convert.ToString(dateTime)), 400, 85, 0);
-                                    }
-                                }
+                                
+ 
 
                                  
                                    
