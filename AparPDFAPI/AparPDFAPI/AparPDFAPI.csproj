@@ -163,6 +163,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ITAssestsPDFController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\PurchaseLTController.cs" />
     <Compile Include="Controllers\PurchasePDFController.cs" />
     <Compile Include="Controllers\TravelVoucherPDFController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

@@ -37,7 +37,7 @@ namespace AparPDFAPI.Controllers
             string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
             string letterhead = letterheadType;
 
-           
+
 
             string login = "sp.admin@apar.com"; //give your username here  
             string PurchaseText = ConfigurationManager.AppSettings["PurchaseText"];
@@ -116,9 +116,9 @@ namespace AparPDFAPI.Controllers
                         string ImgName = docnm;
                         int lastIndex = ImgName.LastIndexOf('.');
                         var Filenm = ImgName.Substring(0, lastIndex);
-                       
+
                         var Exttype = oListItem1["File_x0020_Type"].ToString();
-                       
+
 
                         if (Exttype != "pdf" && Exttype != "PDF")
                         {
@@ -330,7 +330,7 @@ namespace AparPDFAPI.Controllers
                                     PO_X[6] = 245; PO_Y[6] = 145;
 
                                 }
-                                }
+                            }
 
                             if (UserType == "Head3")
                             {
@@ -382,7 +382,7 @@ namespace AparPDFAPI.Controllers
 
 
                         #endregion
-                 
+
                         #region ENI
                         if (letterhead == "ENI")
                         {
@@ -390,7 +390,7 @@ namespace AparPDFAPI.Controllers
                             {
                                 int x = 15;
                                 if (FileType == "PO")
-                                { 
+                                {
                                     PO_X[0] = x; PO_Y[0] = 177;
                                     PO_X[1] = x; PO_Y[1] = 134;
                                     PO_X[2] = x; PO_Y[2] = 126;
@@ -399,7 +399,7 @@ namespace AparPDFAPI.Controllers
                                 }
                                 else
                                 {
-                                    
+
                                     PO_X[0] = x; PO_Y[0] = 195;
                                     PO_X[1] = x; PO_Y[1] = 188;
                                     PO_X[2] = x; PO_Y[2] = 145;
@@ -482,7 +482,7 @@ namespace AparPDFAPI.Controllers
 
                                 }
                             }
-                       
+
                             if (UserType == "Head4")
                             {
                                 int x = 475;
@@ -798,14 +798,14 @@ namespace AparPDFAPI.Controllers
                                 //create PdfStamper object to write to get the pages from reader 
                                 PdfStamper stamper = new PdfStamper(reader, outputStream);
                                 // PdfContentByte from stamper to add content to the pages over the original content
-                            for (int i = 1; i <= n; i++)
-                            {
-                                   PdfContentByte pbover = stamper.GetOverContent(i);
-                                //add content to the page using ColumnText
+                                //for (int i = 1; i <= n; i++)
+                                //{
+                                    PdfContentByte pbover = stamper.GetOverContent(n);
+                                    //add content to the page using ColumnText
 
-                                DateTime dateTime = DateTime.Now;
+                                    DateTime dateTime = DateTime.Now;
 
-                                var blackListTextFont = FontFactory.GetFont("Arial", 6, Color.BLACK);
+                                    var blackListTextFont = FontFactory.GetFont("Arial", 6, Color.BLACK);
                                     // add image
 
 
@@ -837,14 +837,14 @@ namespace AparPDFAPI.Controllers
                                             ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[6], PO_Y[6], 0);
                                         }
                                     }
-                                
- 
 
-                                 
-                                   
-                                    PdfContentByte pbunder = stamper.GetUnderContent(i);
-                                   
-                            }
+
+
+
+
+                                    PdfContentByte pbunder = stamper.GetUnderContent(n);
+
+                                
                                 stamper.Close();
                                 //close the stamper
 

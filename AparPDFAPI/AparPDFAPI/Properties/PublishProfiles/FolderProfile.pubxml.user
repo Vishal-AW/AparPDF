@@ -55,10 +55,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.dll">
-      <publishTime>07/10/2020 18:13:04</publishTime>
+      <publishTime>07/16/2020 16:25:41</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.pdb">
-      <publishTime>07/10/2020 18:13:04</publishTime>
+      <publishTime>07/16/2020 16:25:41</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>07/08/2020 18:40:35</publishTime>
