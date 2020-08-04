@@ -442,8 +442,10 @@ namespace AparPDFAPI.Controllers
                             Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
                             //   uploadFile.ListItemAllFields["Action"] = "Favourites";
                             uploadFile.ListItemAllFields.Update();
-                            context.ExecuteQuery();
 
+                               
+                                    context.ExecuteQuery();
+                               
                             #endregion
                        
                         

@@ -51,7 +51,7 @@ namespace AparPDFAPI.Controllers
                 {
 
 
-
+                try { 
 
                     #region Get Data From List
                     //string password = "zpsllhcvdfbfhgmk";
@@ -242,564 +242,566 @@ namespace AparPDFAPI.Controllers
                         context.Load(file);
                         context.ExecuteQuery();
 
-
-                        contextimage.ExecuteQuery();
-
-                        ClientResult<System.IO.Stream> data = file.OpenBinaryStream();
-
-                        ClientResult<System.IO.Stream> Imagedata = fileimage.OpenBinaryStream();
-
-
-                        context.Load(file);
-                        context.ExecuteQuery();
-                        contextimage.ExecuteQuery();
-                        #endregion
-
-                        int[] PO_X = new int[10];
-                        int[] PO_Y = new int[10];
-
-                        int[] OT_X = new int[10];
-                        int[] OT_Y = new int[10];
-
-                        #region ENIDept
-                        if (letterhead == "ENIDept")
+                        long s = file.Length;
+                        if (s < 2097152)//2097152
                         {
-                            if (UserType == "Head")
+                            contextimage.ExecuteQuery();
+
+                            ClientResult<System.IO.Stream> data = file.OpenBinaryStream();
+
+                            ClientResult<System.IO.Stream> Imagedata = fileimage.OpenBinaryStream();
+
+
+                            context.Load(file);
+                            context.ExecuteQuery();
+                            contextimage.ExecuteQuery();
+                            #endregion
+
+                            int[] PO_X = new int[10];
+                            int[] PO_Y = new int[10];
+
+                            int[] OT_X = new int[10];
+                            int[] OT_Y = new int[10];
+
+                            #region ENIDept
+                            if (letterhead == "ENIDept")
                             {
-                                if (FileType == "PO")
+                                if (UserType == "Head")
                                 {
-                                    PO_X[0] = 15; PO_Y[0] = 216;
-                                    PO_X[1] = 15; PO_Y[1] = 173;
-                                    PO_X[2] = 15; PO_Y[2] = 162;
-                                    PO_X[3] = 15; PO_Y[3] = 153;
-                                    PO_X[4] = 15; PO_Y[4] = 145;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = 15; PO_Y[0] = 216;
+                                        PO_X[1] = 15; PO_Y[1] = 173;
+                                        PO_X[2] = 15; PO_Y[2] = 162;
+                                        PO_X[3] = 15; PO_Y[3] = 153;
+                                        PO_X[4] = 15; PO_Y[4] = 145;
+                                    }
+                                    else
+                                    {
+                                        PO_X[0] = 15; PO_Y[0] = 235;
+                                        PO_X[1] = 15; PO_Y[1] = 225;
+                                        PO_X[2] = 15; PO_Y[2] = 182;
+                                        PO_X[3] = 15; PO_Y[3] = 171;
+                                        PO_X[4] = 15; PO_Y[4] = 162;
+                                        PO_X[5] = 15; PO_Y[5] = 153;
+                                        PO_X[6] = 15; PO_Y[6] = 145;
+
+                                    }
                                 }
-                                else
+                                if (UserType == "Head1")
                                 {
-                                    PO_X[0] = 15; PO_Y[0] = 235;
-                                    PO_X[1] = 15; PO_Y[1] = 225;
-                                    PO_X[2] = 15; PO_Y[2] = 182;
-                                    PO_X[3] = 15; PO_Y[3] = 171;
-                                    PO_X[4] = 15; PO_Y[4] = 162;
-                                    PO_X[5] = 15; PO_Y[5] = 153;
-                                    PO_X[6] = 15; PO_Y[6] = 145;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = 130; PO_Y[0] = 216;
+                                        PO_X[1] = 130; PO_Y[1] = 173;
+                                        PO_X[2] = 130; PO_Y[2] = 162;
+                                        PO_X[3] = 130; PO_Y[3] = 153;
+                                        PO_X[4] = 130; PO_Y[4] = 145;
+                                    }
+                                    else
+                                    {
+                                        PO_X[0] = 130; PO_Y[0] = 235;
+                                        PO_X[1] = 130; PO_Y[1] = 225;
+                                        PO_X[2] = 130; PO_Y[2] = 182;
+                                        PO_X[3] = 130; PO_Y[3] = 171;
+                                        PO_X[4] = 130; PO_Y[4] = 162;
+                                        PO_X[5] = 130; PO_Y[5] = 153;
+                                        PO_X[6] = 130; PO_Y[6] = 145;
 
+                                    }
                                 }
-                            }
-                            if (UserType == "Head1")
-                            {
-                                if (FileType == "PO")
+
+                                if (UserType == "Head2")
                                 {
-                                    PO_X[0] = 130; PO_Y[0] = 216;
-                                    PO_X[1] = 130; PO_Y[1] = 173;
-                                    PO_X[2] = 130; PO_Y[2] = 162;
-                                    PO_X[3] = 130; PO_Y[3] = 153;
-                                    PO_X[4] = 130; PO_Y[4] = 145;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = 245; PO_Y[0] = 216;
+                                        PO_X[1] = 245; PO_Y[1] = 173;
+                                        PO_X[2] = 245; PO_Y[2] = 162;
+                                        PO_X[3] = 245; PO_Y[3] = 153;
+                                        PO_X[4] = 245; PO_Y[4] = 145;
+                                    }
+                                    else
+                                    {
+                                        PO_X[0] = 245; PO_Y[0] = 235;
+                                        PO_X[1] = 245; PO_Y[1] = 225;
+                                        PO_X[2] = 245; PO_Y[2] = 182;
+                                        PO_X[3] = 245; PO_Y[3] = 171;
+                                        PO_X[4] = 245; PO_Y[4] = 162;
+                                        PO_X[5] = 245; PO_Y[5] = 153;
+                                        PO_X[6] = 245; PO_Y[6] = 145;
+
+                                    }
                                 }
-                                else
+
+                                if (UserType == "Head3")
                                 {
-                                    PO_X[0] = 130; PO_Y[0] = 235;
-                                    PO_X[1] = 130; PO_Y[1] = 225;
-                                    PO_X[2] = 130; PO_Y[2] = 182;
-                                    PO_X[3] = 130; PO_Y[3] = 171;
-                                    PO_X[4] = 130; PO_Y[4] = 162;
-                                    PO_X[5] = 130; PO_Y[5] = 153;
-                                    PO_X[6] = 130; PO_Y[6] = 145;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = 360; PO_Y[0] = 216;
+                                        PO_X[1] = 360; PO_Y[1] = 173;
+                                        PO_X[2] = 360; PO_Y[2] = 162;
+                                        PO_X[3] = 360; PO_Y[3] = 153;
+                                        PO_X[4] = 360; PO_Y[4] = 145;
+                                    }
+                                    else
+                                    {
+                                        PO_X[0] = 360; PO_Y[0] = 235;
+                                        PO_X[1] = 360; PO_Y[1] = 225;
+                                        PO_X[2] = 360; PO_Y[2] = 182;
+                                        PO_X[3] = 360; PO_Y[3] = 171;
+                                        PO_X[4] = 360; PO_Y[4] = 162;
+                                        PO_X[5] = 360; PO_Y[5] = 153;
+                                        PO_X[6] = 360; PO_Y[6] = 145;
 
+                                    }
                                 }
-                            }
 
-                            if (UserType == "Head2")
-                            {
-                                if (FileType == "PO")
+                                if (UserType == "Head4")
                                 {
-                                    PO_X[0] = 245; PO_Y[0] = 216;
-                                    PO_X[1] = 245; PO_Y[1] = 173;
-                                    PO_X[2] = 245; PO_Y[2] = 162;
-                                    PO_X[3] = 245; PO_Y[3] = 153;
-                                    PO_X[4] = 245; PO_Y[4] = 145;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = 475; PO_Y[0] = 216;
+                                        PO_X[1] = 475; PO_Y[1] = 173;
+                                        PO_X[2] = 475; PO_Y[2] = 162;
+                                        PO_X[3] = 475; PO_Y[3] = 153;
+                                        PO_X[4] = 476; PO_Y[4] = 145;
+                                    }
+                                    else
+                                    {
+                                        PO_X[0] = 475; PO_Y[0] = 235;
+                                        PO_X[1] = 475; PO_Y[1] = 225;
+                                        PO_X[2] = 475; PO_Y[2] = 182;
+                                        PO_X[3] = 475; PO_Y[3] = 171;
+                                        PO_X[4] = 475; PO_Y[4] = 162;
+                                        PO_X[5] = 475; PO_Y[5] = 153;
+                                        PO_X[6] = 475; PO_Y[6] = 145;
+
+                                    }
                                 }
-                                else
-                                {
-                                    PO_X[0] = 245; PO_Y[0] = 235;
-                                    PO_X[1] = 245; PO_Y[1] = 225;
-                                    PO_X[2] = 245; PO_Y[2] = 182;
-                                    PO_X[3] = 245; PO_Y[3] = 171;
-                                    PO_X[4] = 245; PO_Y[4] = 162;
-                                    PO_X[5] = 245; PO_Y[5] = 153;
-                                    PO_X[6] = 245; PO_Y[6] = 145;
 
-                                }
-                            }
-
-                            if (UserType == "Head3")
-                            {
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = 360; PO_Y[0] = 216;
-                                    PO_X[1] = 360; PO_Y[1] = 173;
-                                    PO_X[2] = 360; PO_Y[2] = 162;
-                                    PO_X[3] = 360; PO_Y[3] = 153;
-                                    PO_X[4] = 360; PO_Y[4] = 145;
-                                }
-                                else
-                                {
-                                    PO_X[0] = 360; PO_Y[0] = 235;
-                                    PO_X[1] = 360; PO_Y[1] = 225;
-                                    PO_X[2] = 360; PO_Y[2] = 182;
-                                    PO_X[3] = 360; PO_Y[3] = 171;
-                                    PO_X[4] = 360; PO_Y[4] = 162;
-                                    PO_X[5] = 360; PO_Y[5] = 153;
-                                    PO_X[6] = 360; PO_Y[6] = 145;
-
-                                }
-                            }
-
-                            if (UserType == "Head4")
-                            {
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = 475; PO_Y[0] = 216;
-                                    PO_X[1] = 475; PO_Y[1] = 173;
-                                    PO_X[2] = 475; PO_Y[2] = 162;
-                                    PO_X[3] = 475; PO_Y[3] = 153;
-                                    PO_X[4] = 476; PO_Y[4] = 145;
-                                }
-                                else
-                                {
-                                    PO_X[0] = 475; PO_Y[0] = 235;
-                                    PO_X[1] = 475; PO_Y[1] = 225;
-                                    PO_X[2] = 475; PO_Y[2] = 182;
-                                    PO_X[3] = 475; PO_Y[3] = 171;
-                                    PO_X[4] = 475; PO_Y[4] = 162;
-                                    PO_X[5] = 475; PO_Y[5] = 153;
-                                    PO_X[6] = 475; PO_Y[6] = 145;
-
-                                }
-                            }
-
-                        }
-
-
-                        #endregion
-
-                        #region ENI
-                        if (letterhead == "ENI")
-                        {
-                            if (UserType == "Head")
-                            {
-                                int x = 15;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head1")
-                            {
-                                int x = 130;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head2")
-                            {
-                                int x = 245;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head3")
-                            {
-                                int x = 360;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
                             }
 
-                            if (UserType == "Head4")
+
+                            #endregion
+
+                            #region ENI
+                            if (letterhead == "ENI")
                             {
-                                int x = 475;
-                                if (FileType == "PO")
+                                if (UserType == "Head")
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
+                                    int x = 15;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
-                                else
+                                if (UserType == "Head1")
                                 {
+                                    int x = 130;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
 
+                                    }
                                 }
-                            }
-                        }
-
-
-                        #endregion
-
-                        #region CP
-                        if (letterhead == "CP")
-                        {
-                            if (UserType == "Head")
-                            {
-                                int x = 15;
-                                if (FileType == "PO")
+                                if (UserType == "Head2")
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
+                                    int x = 245;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
-                                else
+                                if (UserType == "Head3")
                                 {
+                                    int x = 360;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
 
+                                    }
                                 }
-                            }
-                            if (UserType == "Head1")
-                            {
-                                int x = 130;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head2")
-                            {
-                                int x = 245;
-                                if (FileType == "PO")
+                                if (UserType == "Head4")
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
+                                    int x = 475;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
 
-                                }
-                            }
-                            if (UserType == "Head3")
-                            {
-                                int x = 360;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
+                                    }
                                 }
                             }
 
-                            if (UserType == "Head4")
+
+                            #endregion
+
+                            #region CP
+                            if (letterhead == "CP")
                             {
-                                int x = 475;
-                                if (FileType == "PO")
+                                if (UserType == "Head")
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
+                                    int x = 15;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
-                                else
+                                if (UserType == "Head1")
                                 {
+                                    int x = 130;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
 
+                                    }
+                                }
+                                if (UserType == "Head2")
+                                {
+                                    int x = 245;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
+                                }
+                                if (UserType == "Head3")
+                                {
+                                    int x = 360;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
+                                }
+
+                                if (UserType == "Head4")
+                                {
+                                    int x = 475;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
                             }
-                        }
 
 
-                        #endregion
+                            #endregion
 
-                        #region Silvassa
-                        if (letterhead == "Silvassa")
-                        {
-                            if (UserType == "Head")
+                            #region Silvassa
+                            if (letterhead == "Silvassa")
                             {
-                                int x = 15;
-                                if (FileType == "PO")
+                                if (UserType == "Head")
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
+                                    int x = 15;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
-                                else
+                                if (UserType == "Head1")
                                 {
+                                    int x = 130;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
 
+                                    }
+                                }
+                                if (UserType == "Head2")
+                                {
+                                    int x = 245;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
+                                }
+                                if (UserType == "Head3")
+                                {
+                                    int x = 360;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
+                                }
+
+                                if (UserType == "Head4")
+                                {
+                                    int x = 475;
+                                    if (FileType == "PO")
+                                    {
+                                        PO_X[0] = x; PO_Y[0] = 177;
+                                        PO_X[1] = x; PO_Y[1] = 134;
+                                        PO_X[2] = x; PO_Y[2] = 126;
+                                        PO_X[3] = x; PO_Y[3] = 117;
+                                        PO_X[4] = x; PO_Y[4] = 110;
+                                    }
+                                    else
+                                    {
+
+                                        PO_X[0] = x; PO_Y[0] = 195;
+                                        PO_X[1] = x; PO_Y[1] = 188;
+                                        PO_X[2] = x; PO_Y[2] = 145;
+                                        PO_X[3] = x; PO_Y[3] = 134;
+                                        PO_X[4] = x; PO_Y[4] = 126;
+                                        PO_X[5] = x; PO_Y[5] = 117;
+                                        PO_X[6] = x; PO_Y[6] = 110;
+
+                                    }
                                 }
                             }
-                            if (UserType == "Head1")
+
+
+                            #endregion
+
+
+
+                            System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
+                            System.IO.MemoryStream imageStream = new System.IO.MemoryStream();
+
+                            string textPDF = string.Empty;
+                            using (System.IO.MemoryStream mStream = new System.IO.MemoryStream())
                             {
-                                int x = 130;
-                                if (FileType == "PO")
+                                if (data != null)
                                 {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
+                                    String pathout = "";
+                                    data.Value.CopyTo(mStream);
+                                    byte[] array = mStream.ToArray();
 
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head2")
-                            {
-                                int x = 245;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                            if (UserType == "Head3")
-                            {
-                                int x = 360;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-
-                            if (UserType == "Head4")
-                            {
-                                int x = 475;
-                                if (FileType == "PO")
-                                {
-                                    PO_X[0] = x; PO_Y[0] = 177;
-                                    PO_X[1] = x; PO_Y[1] = 134;
-                                    PO_X[2] = x; PO_Y[2] = 126;
-                                    PO_X[3] = x; PO_Y[3] = 117;
-                                    PO_X[4] = x; PO_Y[4] = 110;
-                                }
-                                else
-                                {
-
-                                    PO_X[0] = x; PO_Y[0] = 195;
-                                    PO_X[1] = x; PO_Y[1] = 188;
-                                    PO_X[2] = x; PO_Y[2] = 145;
-                                    PO_X[3] = x; PO_Y[3] = 134;
-                                    PO_X[4] = x; PO_Y[4] = 126;
-                                    PO_X[5] = x; PO_Y[5] = 117;
-                                    PO_X[6] = x; PO_Y[6] = 110;
-
-                                }
-                            }
-                        }
-
-
-                        #endregion
+                                    Imagedata.Value.CopyTo(imageStream);
+                                    byte[] imgarray = imageStream.ToArray();
 
 
 
-                        System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
-                        System.IO.MemoryStream imageStream = new System.IO.MemoryStream();
+                                    PdfReader reader = new PdfReader(array);
 
-                        string textPDF = string.Empty;
-                        using (System.IO.MemoryStream mStream = new System.IO.MemoryStream())
-                        {
-                            if (data != null)
-                            {
-                                String pathout = "";
-                                data.Value.CopyTo(mStream);
-                                byte[] array = mStream.ToArray();
+                                    //select three pages from the original document
+                                    // reader.SelectPages("2");
+                                    int n = reader.NumberOfPages;
 
-                                Imagedata.Value.CopyTo(imageStream);
-                                byte[] imgarray = imageStream.ToArray();
-
-
-
-                                PdfReader reader = new PdfReader(array);
-
-                                //select three pages from the original document
-                                // reader.SelectPages("2");
-                                int n = reader.NumberOfPages;
-
-                                //create PdfStamper object to write to get the pages from reader 
-                                PdfStamper stamper = new PdfStamper(reader, outputStream);
-                                // PdfContentByte from stamper to add content to the pages over the original content
-                                //for (int i = 1; i <= n; i++)
-                                //{
+                                    //create PdfStamper object to write to get the pages from reader 
+                                    PdfStamper stamper = new PdfStamper(reader, outputStream);
+                                    // PdfContentByte from stamper to add content to the pages over the original content
+                                    //for (int i = 1; i <= n; i++)
+                                    //{
                                     PdfContentByte pbover = stamper.GetOverContent(n);
                                     //add content to the page using ColumnText
 
@@ -844,45 +846,54 @@ namespace AparPDFAPI.Controllers
 
                                     PdfContentByte pbunder = stamper.GetUnderContent(n);
 
-                                
-                                stamper.Close();
-                                //close the stamper
+
+                                    stamper.Close();
+                                    //close the stamper
 
 
 
-                                // Update PDF Code
-                                #region Update PDF Code
+                                    // Update PDF Code
+                                    #region Update PDF Code
 
-                                string siteURL = "https://aparindltd.sharepoint.com";
-                                string documentListName = "PurchaseDocuments";
-                                string documentListURL = "https://aparindltd.sharepoint.com/PurchaseOrder/PurchaseDocuments/";
-                                //string documentName = "11111_Airnet.pdf";
+                                    string siteURL = "https://aparindltd.sharepoint.com";
+                                    string documentListName = "PurchaseDocuments";
+                                    string documentListURL = "https://aparindltd.sharepoint.com/PurchaseOrder/PurchaseDocuments/";
+                                    //string documentName = "11111_Airnet.pdf";
 
 
-                                Web web = context.Web;
-                                Microsoft.SharePoint.Client.List list = web.Lists.GetByTitle("PurchaseDocuments");
+                                    Web web = context.Web;
+                                    Microsoft.SharePoint.Client.List list = web.Lists.GetByTitle("PurchaseDocuments");
 
-                                var fileCreationInformation = new FileCreationInformation();
-                                byte[] array1 = outputStream.ToArray();
-                                fileCreationInformation.Content = array1;
-                                fileCreationInformation.Overwrite = true;
-                                //fileCreationInformation.Url = documentListURL + documentName;
-                                fileCreationInformation.Url = path;
-                                Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
-                                //   uploadFile.ListItemAllFields["Action"] = "Favourites";
-                                uploadFile.ListItemAllFields.Update();
-                                context.ExecuteQuery();
+                                    var fileCreationInformation = new FileCreationInformation();
+                                    byte[] array1 = outputStream.ToArray();
+                                    fileCreationInformation.Content = array1;
+                                    fileCreationInformation.Overwrite = true;
+                                    //fileCreationInformation.Url = documentListURL + documentName;
+                                    fileCreationInformation.Url = path;
+                                    Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
+                                    //   uploadFile.ListItemAllFields["Action"] = "Favourites";
+                                    uploadFile.ListItemAllFields.Update();
 
-                                #endregion
 
+                                    context.ExecuteQuery();
+
+                                    #endregion
+
+
+
+                                }
 
 
                             }
-
-
                         }
                     }
-                    return ActionName;
+                    return "Approved";
+                    }
+                    catch (Exception Ex)
+                    {
+                        return "Error";
+                    }
+                    
                 }
             }
 
