@@ -55,28 +55,73 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.dll">
-      <publishTime>07/24/2020 12:59:50</publishTime>
+      <publishTime>08/31/2020 17:10:15</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.pdb">
-      <publishTime>07/24/2020 12:59:50</publishTime>
+      <publishTime>08/31/2020 17:10:15</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
+    <File Include="bin/Microsoft.Identity.Client.dll">
+      <publishTime>08/05/2020 10:15:54</publishTime>
+    </File>
+    <File Include="bin/microsoft.identitymodel.dll">
+      <publishTime>07/09/2019 17:24:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Office.Client.Policy.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Office.Client.TranslationServices.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Office.SharePoint.Tools.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
     <File Include="bin/Microsoft.Online.SharePoint.Client.Tenant.dll">
-      <publishTime>07/08/2020 18:40:35</publishTime>
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ProjectServer.Client.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
     </File>
     <File Include="bin/Microsoft.SharePoint.Client.dll">
-      <publishTime>07/08/2020 18:40:35</publishTime>
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.DocumentManagement.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.Publishing.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
     </File>
     <File Include="bin/Microsoft.SharePoint.Client.Runtime.dll">
-      <publishTime>07/08/2020 18:40:35</publishTime>
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.Runtime.Windows.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.Search.Applications.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.Search.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.Taxonomy.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.UserProfiles.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SharePoint.Client.WorkflowServices.dll">
+      <publishTime>07/17/2020 00:24:42</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>07/08/2020 18:40:36</publishTime>
+    </File>
+    <File Include="bin/SharePointPnP.IdentityModel.Extensions.dll">
+      <publishTime>06/11/2018 09:02:06</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>07/08/2020 18:40:36</publishTime>
@@ -139,7 +184,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>07/08/2020 18:40:35</publishTime>
+      <publishTime>08/11/2020 16:51:37</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>07/08/2020 18:40:35</publishTime>
@@ -184,7 +229,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/24/2020 12:17:47</publishTime>
+      <publishTime>08/11/2020 18:38:07</publishTime>
     </File>
   </ItemGroup>
 </Project>

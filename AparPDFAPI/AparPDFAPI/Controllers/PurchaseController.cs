@@ -20,6 +20,7 @@ using Microsoft.SharePoint.Client;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Net.Sockets;
+using AparPDFAPI.Core.Utilities;
 
 namespace AparPDFAPI.Controllers
 {
@@ -37,7 +38,7 @@ namespace AparPDFAPI.Controllers
             string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
             string letterhead = letterheadType;
 
-
+            string SPToken = GetToken();
 
             string login = "sp.admin@apar.com"; //give your username here  
             string PurchaseText = ConfigurationManager.AppSettings["PurchaseText"];
@@ -242,9 +243,9 @@ namespace AparPDFAPI.Controllers
                         context.Load(file);
                         context.ExecuteQuery();
 
-                        long s = file.Length;
-                        if (s < 2097152)//2097152
-                        {
+                        //long s = file.Length;
+                        //if (s < 2097152)//2097152
+                        //{
                             contextimage.ExecuteQuery();
 
                             ClientResult<System.IO.Stream> data = file.OpenBinaryStream();
@@ -848,49 +849,82 @@ namespace AparPDFAPI.Controllers
 
 
                                     stamper.Close();
-                                    //close the stamper
+                                        //close the stamper
 
 
 
-                                    // Update PDF Code
-                                    #region Update PDF Code
+                                        // Update PDF Code
+                                        #region Update PDF Code
 
-                                    string siteURL = "https://aparindltd.sharepoint.com";
-                                    string documentListName = "PurchaseDocuments";
-                                    string documentListURL = "https://aparindltd.sharepoint.com/PurchaseOrder/PurchaseDocuments/";
-                                    //string documentName = "11111_Airnet.pdf";
-
-
-                                    Web web = context.Web;
-                                    Microsoft.SharePoint.Client.List list = web.Lists.GetByTitle("PurchaseDocuments");
-
-                                    var fileCreationInformation = new FileCreationInformation();
-                                    byte[] array1 = outputStream.ToArray();
-                                    fileCreationInformation.Content = array1;
-                                    fileCreationInformation.Overwrite = true;
-                                    //fileCreationInformation.Url = documentListURL + documentName;
-                                    fileCreationInformation.Url = path;
-                                    Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
-                                    //   uploadFile.ListItemAllFields["Action"] = "Favourites";
-                                    uploadFile.ListItemAllFields.Update();
+                                        //string siteURL = "https://aparindltd.sharepoint.com";
+                                        //string documentListName = "PurchaseDocuments";
+                                        //string documentListURL = "https://aparindltd.sharepoint.com/PurchaseOrder/PurchaseDocuments/";
+                                        ////string documentName = "11111_Airnet.pdf";
 
 
-                                    context.ExecuteQuery();
+                                        //Web web = context.Web;
+                                        //Microsoft.SharePoint.Client.List list = web.Lists.GetByTitle("PurchaseDocuments");
 
-                                    #endregion
+                                        //var fileCreationInformation = new FileCreationInformation();
+                                        //byte[] array1 = outputStream.ToArray();
+                                        //fileCreationInformation.Content = array1;
+                                        //fileCreationInformation.Overwrite = true;
+                                        ////fileCreationInformation.Url = documentListURL + documentName;
+                                        //fileCreationInformation.Url = path;
+                                        //Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
+                                        ////   uploadFile.ListItemAllFields["Action"] = "Favourites";
+                                        //uploadFile.ListItemAllFields.Update();
+
+
+                                        //context.ExecuteQuery();
+
+
+                                        byte[] array1 = outputStream.ToArray();
+
+
+                                        HttpWebRequest endpointRequest = (HttpWebRequest)HttpWebRequest.Create(ConfigurationManager.AppSettings["URLName"].ToString() + "/_api/web/GetFolderByServerRelativeUrl('PurchaseDocuments')/Files/add(url='" + ImgName + "',overwrite=true)");
+                                        endpointRequest.Method = "POST";
+                                        endpointRequest.Headers.Add("binaryStringRequestBody", "true");
+                                        endpointRequest.Headers.Add("Authorization", "Bearer " + SPToken);
+                                        endpointRequest.GetRequestStream().Write(array1, 0, array1.Length);
+
+                                        HttpWebResponse endpointresponse = (HttpWebResponse)endpointRequest.GetResponse();
+
+                                        endpointresponse.Close();
+
+                                        #endregion
 
 
 
-                                }
+                                    }
 
 
                             }
-                        }
+                      //  }
                     }
                     return "Approved";
                     }
                     catch (Exception Ex)
                     {
+
+
+                        //var DigitalStampingError = context.Web.Lists.GetByTitle("DigitalStampingError");
+                        //Microsoft.SharePoint.Client.ListItem listItem = null;
+
+                        //ListItemCreationInformation itemCreateInfo = new ListItemCreationInformation();
+                        //listItem = DigitalStampingError.AddItem(itemCreateInfo);
+
+                        //var urlvar = "https://ascenwork.in/api/PDFImageNew/GetPDFGenrate/" + ActionName + "/" + LoginName + "/" + EmailID + "/" + Comments + "/" + PONumber + "/" + PODisplayNo + "/" + UserType + "/" + letterheadType;
+
+                        //listItem["UserDisplayName"] = LoginName;
+                        //listItem["UserLoginId"] = EmailID;
+                        //listItem["PONumber"] = PONumber;  
+                        //listItem["Error"] = Ex.ToString();
+                        //listItem["DisplayNo"] = PODisplayNo;
+                        //listItem["URL"] = urlvar;
+                        //listItem.Update();
+                        //context.ExecuteQuery();
+
                         return "Error";
                     }
                     
@@ -900,6 +934,18 @@ namespace AparPDFAPI.Controllers
 
         }
 
+        public static string GetToken()
+        {
 
+            Uri webUri = new Uri(ConfigurationManager.AppSettings["URLName"]);
+
+            string realm = TokenHelper.GetRealmFromTargetUrl(webUri);
+
+            var SharePointPrincipalId = "00000003-0000-0ff1-ce00-000000000000";
+            var token = TokenHelper.GetAppOnlyAccessToken(SharePointPrincipalId, webUri.Authority, realm).AccessToken;
+
+
+            return token;
+        }
     }
 }
