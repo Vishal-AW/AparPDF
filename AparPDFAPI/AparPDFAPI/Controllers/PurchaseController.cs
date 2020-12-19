@@ -27,8 +27,8 @@ namespace AparPDFAPI.Controllers
     public class PurchaseController : ApiController
     {
         [HttpGet]
-        [Route("api/PDFImageNew/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{PONumber}/{PODisplayNo}/{UserType}/{letterheadType}")]
-        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string PONumber, string PODisplayNo, string UserType, string letterheadType)
+        [Route("api/PDFImageNew/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{PONumber}/{PODisplayNo}/{UserType}/{letterheadType}/{POPageoption?}")]
+        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string PONumber, string PODisplayNo, string UserType, string letterheadType,string POPageoption = "LastPage")
         {
 
             string Action = ActionName;
@@ -37,7 +37,7 @@ namespace AparPDFAPI.Controllers
             string DispayPO = PODisplayNo;
             string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
             string letterhead = letterheadType;
-
+            string POPage = POPageoption; //"EveryPage";
             string SPToken = GetToken();
 
             string login = "sp.admin@apar.com"; //give your username here  
@@ -803,7 +803,7 @@ namespace AparPDFAPI.Controllers
                                     // PdfContentByte from stamper to add content to the pages over the original content
                                     //for (int i = 1; i <= n; i++)
                                     //{
-                                    PdfContentByte pbover = stamper.GetOverContent(n);
+                                   // PdfContentByte pbover = stamper.GetOverContent(n);
                                     //add content to the page using ColumnText
 
                                     DateTime dateTime = DateTime.Now;
@@ -814,19 +814,50 @@ namespace AparPDFAPI.Controllers
 
                                     if (FileType == "PO")
                                     {
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
-                                        pbover.AddImage(sigimage);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
-                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
-                                        if (UserType == "Head")
+                                        if (POPage == "EveryPage")
                                         {
-                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[4], PO_Y[4], 0);
+                                            for (int i = 1; i <= n; i++)
+                                            {
+                                                PdfContentByte pbover = stamper.GetOverContent(i);
+                                                ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
+                                                iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                                sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                                pbover.AddImage(sigimage);
+                                                ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
+                                                ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
+                                                if (UserType == "Head")
+                                                {
+                                                    ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[4], PO_Y[4], 0);
+                                                }
+
+                                                PdfContentByte pbunder = stamper.GetUnderContent(i);
+                                            }
+
                                         }
+                                        else
+                                        {
+                                            PdfContentByte pbover = stamper.GetOverContent(n);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
+                                            iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                            sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                            pbover.AddImage(sigimage);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
+                                            if (UserType == "Head")
+                                            {
+                                                ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[4], PO_Y[4], 0);
+                                            }
+
+                                            PdfContentByte pbunder = stamper.GetUnderContent(n);
+
+
+                                        }
+
+                                        
                                     }
                                     else
                                     {
+                                        PdfContentByte pbover = stamper.GetOverContent(n);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(DispayPO, blackListTextFont)), PO_X[0], PO_Y[0], 0);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(ActionName, blackListTextFont)), PO_X[1], PO_Y[1], 0);
                                         iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
@@ -839,44 +870,19 @@ namespace AparPDFAPI.Controllers
                                         {
                                             ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[6], PO_Y[6], 0);
                                         }
+
+                                        PdfContentByte pbunder = stamper.GetUnderContent(n);
                                     }
 
 
 
 
 
-                                    PdfContentByte pbunder = stamper.GetUnderContent(n);
+                                    
 
 
                                     stamper.Close();
                                         //close the stamper
-
-
-
-                                        // Update PDF Code
-                                        #region Update PDF Code
-
-                                        //string siteURL = "https://aparindltd.sharepoint.com";
-                                        //string documentListName = "PurchaseDocuments";
-                                        //string documentListURL = "https://aparindltd.sharepoint.com/PurchaseOrder/PurchaseDocuments/";
-                                        ////string documentName = "11111_Airnet.pdf";
-
-
-                                        //Web web = context.Web;
-                                        //Microsoft.SharePoint.Client.List list = web.Lists.GetByTitle("PurchaseDocuments");
-
-                                        //var fileCreationInformation = new FileCreationInformation();
-                                        //byte[] array1 = outputStream.ToArray();
-                                        //fileCreationInformation.Content = array1;
-                                        //fileCreationInformation.Overwrite = true;
-                                        ////fileCreationInformation.Url = documentListURL + documentName;
-                                        //fileCreationInformation.Url = path;
-                                        //Microsoft.SharePoint.Client.File uploadFile = list.RootFolder.Files.Add(fileCreationInformation);
-                                        ////   uploadFile.ListItemAllFields["Action"] = "Favourites";
-                                        //uploadFile.ListItemAllFields.Update();
-
-
-                                        //context.ExecuteQuery();
 
 
                                         byte[] array1 = outputStream.ToArray();
@@ -892,7 +898,7 @@ namespace AparPDFAPI.Controllers
 
                                         endpointresponse.Close();
 
-                                        #endregion
+                                      
 
 
 

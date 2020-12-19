@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-This file is used by the publish/package process of your Web project. You can customize the behavior of this process
-by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+https://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>E:\Apar Solution\AparPDF\AparPDFAPI\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>F:\Apar Solution\AparPDF\AparPDFAPI\Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -55,10 +53,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.dll">
-      <publishTime>08/31/2020 17:10:15</publishTime>
+      <publishTime>12/09/2020 13:27:59</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.pdb">
-      <publishTime>08/31/2020 17:10:15</publishTime>
+      <publishTime>12/09/2020 13:27:59</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>07/08/2020 18:40:35</publishTime>
@@ -229,7 +227,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/11/2020 18:38:07</publishTime>
+      <publishTime>12/09/2020 13:25:34</publishTime>
     </File>
   </ItemGroup>
 </Project>
