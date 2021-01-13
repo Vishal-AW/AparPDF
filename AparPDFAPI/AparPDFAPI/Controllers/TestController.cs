@@ -22,18 +22,19 @@ using Newtonsoft.Json.Linq;
 using System.Net.Sockets;
 using AparPDFAPI.Core.Utilities;
 
+
 namespace AparPDFAPI.Controllers
 {
-    public class ARController : ApiController
+    public class TestController : ApiController
     {
         [HttpGet]
-        [Route("api/PDFImageAR/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{LID}/{DisplayNo}/{TotalApprover}/{CurrentApprover}/{Position}/{designation}")]
-        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string LID, string DisplayNo, int TotalApprover, int CurrentApprover,int Position,string designation)
+        [Route("api/Test/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{LID}/{DisplayNo}/{TotalApprover}/{CurrentApprover}/{Position}/{designation}")]
+        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string LID, string DisplayNo, int TotalApprover, int CurrentApprover, int Position, string designation)
         {
             string returnmessage = "done";
             try
             {
-                
+
                 string Action = ActionName;
                 string User = LoginName;
                 string POnum = LID;
@@ -44,13 +45,13 @@ namespace AparPDFAPI.Controllers
                 string login = "sp.admin@apar.com";
                 string PurchaseText = ConfigurationManager.AppSettings["ARText"];
                 string WSiteName = ConfigurationManager.AppSettings["ARSiteName"];
-                string Nextpagetext = ConfigurationManager.AppSettings["ARNewPage"];
                 string designationName = "";
 
                 if (designation == "Creator")
                 {
                     designationName = ConfigurationManager.AppSettings["Creator"];
-                }else if (designation == "Approver")
+                }
+                else if (designation == "Approver")
                 {
                     designationName = ConfigurationManager.AppSettings["Approver"];
                 }
@@ -127,14 +128,14 @@ namespace AparPDFAPI.Controllers
                         var path = "";
                         int noticline = B_P;
 
-                        //if (TotalApprover > 5)
-                        //{
-                        //    if (CurrentApprover <= 5)
-                        //    {
-                        //        B_P = B_P + 71;
-                        //    }
+                        if (TotalApprover > 5)
+                        {
+                            if (CurrentApprover <= 5)
+                            {
+                                B_P = B_P + 71;
+                            }
 
-                        //}
+                        }
                         int Xvalue = 0;
                         if (CurrentApprover == 1 || CurrentApprover == 6)
                         {
@@ -166,7 +167,7 @@ namespace AparPDFAPI.Controllers
                             //var FileType = oListItem1["FileType"].ToString();
                             docnm = oListItem1["FileLeafRef"].ToString();
                             var docId = oListItem1["ID"].ToString();
-                         //   var FileTypename = oListItem1["FileType"].ToString();
+                            //   var FileTypename = oListItem1["FileType"].ToString();
                             string ImgName = docnm;
                             int lastIndex = ImgName.LastIndexOf('.');
                             var Filenm = ImgName.Substring(0, lastIndex);
@@ -186,7 +187,7 @@ namespace AparPDFAPI.Controllers
                                     document.Open();
 
                                     //document.Add(new Paragraph("Hello World"));
-                                    var docimg = WSiteName+ "/ARDocument/" + docnm + "";
+                                    var docimg = WSiteName + "/ARDocument/" + docnm + "";
                                     var docimg1 = WSiteName + "/ARDocument/" + Filenm + ".pdf";
                                     var fileimagetype = context.Web.GetFileByServerRelativeUrl(docimg);
 
@@ -210,7 +211,7 @@ namespace AparPDFAPI.Controllers
 
                                     //sigimage1.HasAbsolutePosition();
                                     document.Add(sigimage1);
-                                    
+
 
                                     document.Close();
 
@@ -266,7 +267,7 @@ namespace AparPDFAPI.Controllers
 
                             #endregion
 
-                             
+
 
                             int[] PO_X = new int[10];
                             int[] PO_Y = new int[10];
@@ -274,7 +275,7 @@ namespace AparPDFAPI.Controllers
                             int[] OT_X = new int[10];
                             int[] OT_Y = new int[10];
 
-                          
+
                             PO_X[0] = Xvalue; PO_Y[0] = B_P + 60;
                             PO_X[1] = Xvalue; PO_Y[1] = B_P + 18;
                             PO_X[2] = Xvalue; PO_Y[2] = B_P + 12;
@@ -290,38 +291,52 @@ namespace AparPDFAPI.Controllers
                             {
                                 if (data != null)
                                 {
+                                    Document document = new Document(PageSize.A4.Rotate());
+
+
+
+
+                                     
                                     String pathout = "";
                                     data.Value.CopyTo(mStream);
                                     byte[] array = mStream.ToArray();
 
-                                    if (CurrentApprover == 6)
-                                    {
-                                        PdfReader readertemp = new PdfReader(array);
-
-                                        array = AddDocumentPages(array, readertemp.NumberOfPages);
-                                    }
-
                                     Imagedata.Value.CopyTo(imageStream);
                                     byte[] imgarray = imageStream.ToArray();
 
+                                    PdfReader readertemp = new PdfReader(array);
+
+                                    array = AddDocumentPages(array, readertemp.NumberOfPages);
                                     PdfReader reader = new PdfReader(array);
 
-                                    //select three pages from the original document
-                                    // reader.SelectPages("2");
                                     int n = reader.NumberOfPages;
 
-                                    //create PdfStamper object to write to get the pages from reader 
+                                    
+
+                                    //if (CurrentApprover == 6)
+                                    //{
+                                    //    PdfStamper stamper1 = new PdfStamper(reader, mStream);
+
+                                    //    var numberofPages = reader.NumberOfPages;
+                                    //    var rectangle = reader.GetPageSize(1);
+                                    //    for (var i = 1; i <= n; i++) stamper1.InsertPage(numberofPages + i, rectangle);
+                                    //    reader.Close();
+                                    //    stamper1.Close();
+                                    //    mStream.Flush();
+
+                                    //}
+
+
+
                                     PdfStamper stamper = new PdfStamper(reader, outputStream);
 
-                                   
 
-                                   
                                     PdfContentByte pbover = stamper.GetOverContent(n);
-                                   
+
                                     DateTime dateTime = DateTime.Now;
 
                                     var blackListTextFont = FontFactory.GetFont("Arial", 4, Color.BLACK);
-                                    
+
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
                                     iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
                                     sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
@@ -335,20 +350,13 @@ namespace AparPDFAPI.Controllers
                                     }
 
                                     PdfContentByte pbunder = stamper.GetUnderContent(n);
-
-                                    if (CurrentApprover == 6)
-                                    {
-                                        int m = n - 1;
-                                        PdfContentByte pbover1 = stamper.GetOverContent(m);
-                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext, blackListTextFont)), 475, PO_Y[5], 0);
-
-                                        PdfContentByte pbunder1 = stamper.GetUnderContent(m);
-                                    }
-
                                     stamper.Close();
 
-                                    
-                                   
+
+
+
+
+
 
                                     #region Update PDF Code
                                     byte[] array1 = outputStream.ToArray();
@@ -377,7 +385,7 @@ namespace AparPDFAPI.Controllers
             }
             catch (Exception ex)
             {
-                returnmessage = ex.ToString ();
+                returnmessage = ex.ToString();
 
             }
 
@@ -388,21 +396,21 @@ namespace AparPDFAPI.Controllers
             return returnmessage;
         }
 
+
         private static byte[] AddDocumentPages(byte[] pdf, int pages)
         {
-            var reader = new PdfReader(pdf);
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            PdfStamper stamper = new PdfStamper(reader, ms);
-            var numberofPages = reader.NumberOfPages;
-            var rectangle = reader.GetPageSize(1);
-            for (var i = 1; i <= pages; i++) stamper.InsertPage(numberofPages + i, rectangle);
-            reader.Close();
-            stamper.Close();
-            ms.Flush();
-            return ms.GetBuffer();
-
+                var reader = new PdfReader(pdf);
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                PdfStamper stamper = new PdfStamper(reader, ms);
+                var numberofPages = reader.NumberOfPages;
+                var rectangle = reader.GetPageSize(1);
+                for (var i = 1; i <= pages; i++) stamper.InsertPage(numberofPages + i, rectangle);
+                reader.Close();
+                stamper.Close();
+                ms.Flush();
+                return ms.GetBuffer();
+            
         }
-
 
         public static string GetToken()
         {

@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ExpensePDFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ITAssestsPDFController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\testPurchaseController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\PurchaseLTController.cs" />

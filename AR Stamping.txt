@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -44,7 +44,6 @@ namespace AparPDFAPI.Controllers
                 string login = "sp.admin@apar.com";
                 string PurchaseText = ConfigurationManager.AppSettings["ARText"];
                 string WSiteName = ConfigurationManager.AppSettings["ARSiteName"];
-                string Nextpagetext = ConfigurationManager.AppSettings["ARNewPage"];
                 string designationName = "";
 
                 if (designation == "Creator")
@@ -127,14 +126,14 @@ namespace AparPDFAPI.Controllers
                         var path = "";
                         int noticline = B_P;
 
-                        //if (TotalApprover > 5)
-                        //{
-                        //    if (CurrentApprover <= 5)
-                        //    {
-                        //        B_P = B_P + 71;
-                        //    }
+                        if (TotalApprover > 5)
+                        {
+                            if (CurrentApprover <= 5)
+                            {
+                                B_P = B_P + 71;
+                            }
 
-                        //}
+                        }
                         int Xvalue = 0;
                         if (CurrentApprover == 1 || CurrentApprover == 6)
                         {
@@ -210,7 +209,7 @@ namespace AparPDFAPI.Controllers
 
                                     //sigimage1.HasAbsolutePosition();
                                     document.Add(sigimage1);
-                                    
+
 
                                     document.Close();
 
@@ -274,12 +273,20 @@ namespace AparPDFAPI.Controllers
                             int[] OT_X = new int[10];
                             int[] OT_Y = new int[10];
 
-                          
-                            PO_X[0] = Xvalue; PO_Y[0] = B_P + 60;
-                            PO_X[1] = Xvalue; PO_Y[1] = B_P + 18;
-                            PO_X[2] = Xvalue; PO_Y[2] = B_P + 12;
-                            PO_X[3] = Xvalue; PO_Y[3] = B_P + 8;
-                            PO_X[4] = Xvalue; PO_Y[4] = B_P + 4;
+
+
+                            //PO_X[0] = Xvalue; PO_Y[0] = B_P + 71;
+                            //PO_X[1] = Xvalue; PO_Y[1] = B_P + 26;
+                            //PO_X[2] = Xvalue; PO_Y[2] = B_P + 17;
+                            //PO_X[3] = Xvalue; PO_Y[3] = B_P + 8;
+                            //PO_X[4] = Xvalue; PO_Y[4] = B_P + 8;
+                            //PO_X[5] = Xvalue; PO_Y[5] = noticline;
+
+                            PO_X[0] = Xvalue; PO_Y[0] = B_P + 79;
+                            PO_X[1] = Xvalue; PO_Y[1] = B_P + 35;
+                            PO_X[2] = Xvalue; PO_Y[2] = B_P + 23;
+                            PO_X[3] = Xvalue; PO_Y[3] = B_P + 16;
+                            PO_X[4] = Xvalue; PO_Y[4] = B_P + 8;
                             PO_X[5] = Xvalue; PO_Y[5] = noticline;
 
                             System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
@@ -294,13 +301,6 @@ namespace AparPDFAPI.Controllers
                                     data.Value.CopyTo(mStream);
                                     byte[] array = mStream.ToArray();
 
-                                    if (CurrentApprover == 6)
-                                    {
-                                        PdfReader readertemp = new PdfReader(array);
-
-                                        array = AddDocumentPages(array, readertemp.NumberOfPages);
-                                    }
-
                                     Imagedata.Value.CopyTo(imageStream);
                                     byte[] imgarray = imageStream.ToArray();
 
@@ -312,9 +312,6 @@ namespace AparPDFAPI.Controllers
 
                                     //create PdfStamper object to write to get the pages from reader 
                                     PdfStamper stamper = new PdfStamper(reader, outputStream);
-
-                                   
-
                                    
                                     PdfContentByte pbover = stamper.GetOverContent(n);
                                    
@@ -336,20 +333,8 @@ namespace AparPDFAPI.Controllers
 
                                     PdfContentByte pbunder = stamper.GetUnderContent(n);
 
-                                    if (CurrentApprover == 6)
-                                    {
-                                        int m = n - 1;
-                                        PdfContentByte pbover1 = stamper.GetOverContent(m);
-                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext, blackListTextFont)), 475, PO_Y[5], 0);
-
-                                        PdfContentByte pbunder1 = stamper.GetUnderContent(m);
-                                    }
-
+                                    // }
                                     stamper.Close();
-
-                                    
-                                   
-
                                     #region Update PDF Code
                                     byte[] array1 = outputStream.ToArray();
                                     HttpWebRequest endpointRequest = (HttpWebRequest)HttpWebRequest.Create(ConfigurationManager.AppSettings["ARSite"].ToString() + "/_api/web/GetFolderByServerRelativeUrl('ARDocument')/Files/add(url='" + ImgName + "',overwrite=true)");
@@ -386,21 +371,6 @@ namespace AparPDFAPI.Controllers
 
 
             return returnmessage;
-        }
-
-        private static byte[] AddDocumentPages(byte[] pdf, int pages)
-        {
-            var reader = new PdfReader(pdf);
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            PdfStamper stamper = new PdfStamper(reader, ms);
-            var numberofPages = reader.NumberOfPages;
-            var rectangle = reader.GetPageSize(1);
-            for (var i = 1; i <= pages; i++) stamper.InsertPage(numberofPages + i, rectangle);
-            reader.Close();
-            stamper.Close();
-            ms.Flush();
-            return ms.GetBuffer();
-
         }
 
 
