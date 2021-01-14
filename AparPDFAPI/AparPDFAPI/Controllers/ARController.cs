@@ -313,15 +313,29 @@ namespace AparPDFAPI.Controllers
                                     //create PdfStamper object to write to get the pages from reader 
                                     PdfStamper stamper = new PdfStamper(reader, outputStream);
 
-                                   
+                                    
+
 
                                    
                                     PdfContentByte pbover = stamper.GetOverContent(n);
+
+                                  
+                                    var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
                                    
+
+
+                                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarray);
+                                    logo.SetAbsolutePosition(15, 720);
+                                    pbover.AddImage(logo);
+                                    ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no "+ DispayPO , lable)), 475, 720, 0);
+
+
                                     DateTime dateTime = DateTime.Now;
 
                                     var blackListTextFont = FontFactory.GetFont("Arial", 4, Color.BLACK);
-                                    
+
+
+
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
                                     iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
                                     sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
