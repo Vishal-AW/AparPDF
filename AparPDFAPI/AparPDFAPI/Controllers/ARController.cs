@@ -127,14 +127,14 @@ namespace AparPDFAPI.Controllers
                         var path = "";
                         int noticline = B_P;
 
-                        //if (TotalApprover > 5)
-                        //{
-                        //    if (CurrentApprover <= 5)
-                        //    {
-                        //        B_P = B_P + 71;
-                        //    }
+                        if (TotalApprover > 5)
+                        {
+                            if (CurrentApprover <= 5)
+                            {
+                                B_P = B_P + 500;
+                            }
 
-                        //}
+                        }
                         int Xvalue = 0;
                         if (CurrentApprover == 1 || CurrentApprover == 6)
                         {
@@ -322,8 +322,6 @@ namespace AparPDFAPI.Controllers
                                   
                                     var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
                                    
-
-
                                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarray);
                                     logo.SetAbsolutePosition(15, 720);
                                     pbover.AddImage(logo);
