@@ -37,7 +37,8 @@ namespace AparPDFAPI.Controllers
                 string Action = ActionName;
                 string User = LoginName;
                 string POnum = LID;
-                string DispayPO = DisplayNo;
+               // string DispayPO = DisplayNo;
+                string DispayPO = DisplayNo.Insert(2, "/").Insert(5, "-").Insert(8, "/");
                 string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
                 int B_P = Position;
                 string SPToken = GetToken();
@@ -87,15 +88,30 @@ namespace AparPDFAPI.Controllers
 
                         var listdata = contextimage.Web.Lists.GetByTitle("EmployeSignature");
 
+                        var listdataLogolist = contextimage.Web.Lists.GetByTitle("logoimages");
+
 
                         var items = listdata.GetItems(CamlQuery.CreateAllItemsQuery());
                         CamlQuery query = new CamlQuery();
-                        //query.ViewXml = "<View><Query><Eq><FieldRef Name='EmployeeUserName' LookupId='TRUE'/><Value Type='User'>" + User + "</Value></Eq></Query><OrderBy><FieldRef Name='FileLeafRef' /></OrderBy></View><ViewFields><FieldRef Name='ID' /><FieldRef Name='FileLeafRef' /><FieldRef Name='FileDirRef' /></ViewFields><QueryOptions><ViewAttributes Scope='Recursive' /><OptimizeFor>FolderUrls</OptimizeFor></QueryOptions>";
-                        //query.ViewXml = "<View><Query><Eq><FieldRef Name='EmployeeCode_x003a_Employee_x0020_Email' /><Value Type='Lookup'>kiran.sawant@apar.com</Value></Eq></Query><OrderBy><FieldRef Name='FileLeafRef' /></OrderBy></View><ViewFields><FieldRef Name='ID' /><FieldRef Name='FileLeafRef' /><FieldRef Name='FileDirRef' /></ViewFields><QueryOptions><ViewAttributes Scope='Recursive' /><OptimizeFor>FolderUrls</OptimizeFor></QueryOptions>";
                         query.ViewXml = "<View><Query><Where><Eq><FieldRef Name='EmployeeCode_x003a_Employee_x0020_Email' /><Value Type='Lookup'>" + EmailID + "</Value></Eq></Where></Query><OrderBy><FieldRef Name='FileLeafRef' /></OrderBy></View>";
-
-
                         ListItemCollection listitem = listdata.GetItems(query);
+
+                        //// logo code
+                        ///
+                        var itemslogo = listdataLogolist.GetItems(CamlQuery.CreateAllItemsQuery());
+                        CamlQuery querylogo = new CamlQuery();
+                        query.ViewXml = "<View><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>logo.png</Value></Eq></Where></Query><OrderBy><FieldRef Name='FileLeafRef' /></OrderBy></View>";
+                        ListItemCollection listdataLogo = listdataLogolist.GetItems(query);
+                        contextimage.Load(listdataLogo);
+                        contextimage.ExecuteQuery();
+                        var signimagelogo = "";
+                        foreach (var oListItem in listdataLogo)
+                        {
+                            signimagelogo = oListItem["FileLeafRef"].ToString();
+                        }
+
+                        /// logo code end
+
 
 
                         contextimage.Load(listitem);
@@ -129,9 +145,9 @@ namespace AparPDFAPI.Controllers
 
                         if (TotalApprover > 5)
                         {
-                            if (CurrentApprover <= 5)
+                            if (CurrentApprover > 5)
                             {
-                                B_P = B_P + 500;
+                                B_P = B_P + 650;
                             }
 
                         }
@@ -251,6 +267,8 @@ namespace AparPDFAPI.Controllers
 
                             var image = "/EmployeSignature/" + signimage + "";
                             var fileimage = contextimage.Web.GetFileByServerRelativeUrl(image);
+                            var imagelogo = "/logoimages/" + signimagelogo + "";
+                            var fileimageLogo = contextimage.Web.GetFileByServerRelativeUrl(imagelogo);
 
                             context.Load(file);
                             context.ExecuteQuery();
@@ -258,6 +276,7 @@ namespace AparPDFAPI.Controllers
                             contextimage.ExecuteQuery();
                             ClientResult<System.IO.Stream> data = file.OpenBinaryStream();
                             ClientResult<System.IO.Stream> Imagedata = fileimage.OpenBinaryStream();
+                            ClientResult<System.IO.Stream> ImagedataLogo = fileimageLogo.OpenBinaryStream();
 
                             context.Load(file);
                             context.ExecuteQuery();
@@ -284,6 +303,7 @@ namespace AparPDFAPI.Controllers
 
                             System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
                             System.IO.MemoryStream imageStream = new System.IO.MemoryStream();
+                            System.IO.MemoryStream imageStreamLogo = new System.IO.MemoryStream();
 
                             string textPDF = string.Empty;
                             using (System.IO.MemoryStream mStream = new System.IO.MemoryStream())
@@ -304,6 +324,10 @@ namespace AparPDFAPI.Controllers
                                     Imagedata.Value.CopyTo(imageStream);
                                     byte[] imgarray = imageStream.ToArray();
 
+
+                                    ImagedataLogo.Value.CopyTo(imageStreamLogo);
+                                    byte[] imgarrayLogo = imageStreamLogo.ToArray();
+
                                     PdfReader reader = new PdfReader(array);
 
                                     //select three pages from the original document
@@ -313,19 +337,39 @@ namespace AparPDFAPI.Controllers
                                     //create PdfStamper object to write to get the pages from reader 
                                     PdfStamper stamper = new PdfStamper(reader, outputStream);
 
-                                    
-
-
-                                   
                                     PdfContentByte pbover = stamper.GetOverContent(n);
 
-                                  
-                                    var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
-                                   
-                                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarray);
-                                    logo.SetAbsolutePosition(15, 720);
-                                    pbover.AddImage(logo);
-                                    ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no "+ DispayPO , lable)), 475, 720, 0);
+                                    if (CurrentApprover == 1)
+                                    {
+                                        for (int y = 1; y < reader.NumberOfPages + 1; y++)
+                                        {
+                                            pbover = stamper.GetOverContent(y);
+                                            var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
+
+                                            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
+                                            logo.SetAbsolutePosition(15, 780);
+                                            pbover.AddImage(logo);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+
+                                        }
+                                    }
+
+                                    if (CurrentApprover == 6)
+                                    {
+                                         
+                                            pbover = stamper.GetOverContent(n);
+                                            var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
+
+                                            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
+                                            logo.SetAbsolutePosition(15, 780);
+                                            pbover.AddImage(logo);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+
+                                        
+                                    }
+
+                                    pbover = stamper.GetOverContent(n);
+
 
 
                                     DateTime dateTime = DateTime.Now;
@@ -335,9 +379,20 @@ namespace AparPDFAPI.Controllers
 
 
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
-                                    iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                    sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
-                                    pbover.AddImage(sigimage);
+                                    if(ActionName != "Rejected")
+                                    {
+                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                        sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                        pbover.AddImage(sigimage);
+
+                                    }
+                                    else
+                                    {
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("Rejected", FontFactory.GetFont("Arial", 20, Color.BLACK))), PO_X[1], PO_Y[1] + 10, 0);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("Rejected By  " + User, FontFactory.GetFont("Arial", 8, Color.BLACK))), 450, 770, 0);
+
+                                    }
+
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(designationName, blackListTextFont)), PO_X[4], PO_Y[4], 0);
@@ -346,13 +401,17 @@ namespace AparPDFAPI.Controllers
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(footer, blackListTextFont)), PO_X[5], PO_Y[5], 0);
                                     }
 
+
+                                   
+
                                     PdfContentByte pbunder = stamper.GetUnderContent(n);
 
                                     if (CurrentApprover == 6)
                                     {
-                                        int m = n - 1;
+                                        int m = n;
                                         PdfContentByte pbover1 = stamper.GetOverContent(m);
-                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext, blackListTextFont)), 475, PO_Y[5], 0);
+                                        var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
+                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext + (m-1) , lable)), 450, 790, 0);
 
                                         PdfContentByte pbunder1 = stamper.GetUnderContent(m);
                                     }
@@ -390,11 +449,7 @@ namespace AparPDFAPI.Controllers
             catch (Exception ex)
             {
                 returnmessage = ex.ToString ();
-
             }
-
-
-
 
 
             return returnmessage;
@@ -407,7 +462,7 @@ namespace AparPDFAPI.Controllers
             PdfStamper stamper = new PdfStamper(reader, ms);
             var numberofPages = reader.NumberOfPages;
             var rectangle = reader.GetPageSize(1);
-            for (var i = 1; i <= pages; i++) stamper.InsertPage(numberofPages + i, rectangle);
+            stamper.InsertPage(numberofPages + 1, rectangle);
             reader.Close();
             stamper.Close();
             ms.Flush();
