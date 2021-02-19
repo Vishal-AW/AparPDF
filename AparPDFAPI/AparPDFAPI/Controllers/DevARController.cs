@@ -24,20 +24,21 @@ using AparPDFAPI.Core.Utilities;
 
 namespace AparPDFAPI.Controllers
 {
-    public class ARController : ApiController
+    public class DevARController : ApiController
     {
+
         [HttpGet]
-        [Route("api/PDFImageAR/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{LID}/{DisplayNo}/{TotalApprover}/{CurrentApprover}/{Position}/{designation}")]
-        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string LID, string DisplayNo, int TotalApprover, int CurrentApprover,int Position,string designation)
+        [Route("api/DevPDFImageAR/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{LID}/{DisplayNo}/{TotalApprover}/{CurrentApprover}/{Position}/{designation}")]
+        public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string LID, string DisplayNo, int TotalApprover, int CurrentApprover, int Position, string designation)
         {
             string returnmessage = "done";
             try
             {
-                
+                //DisplayNo = "AR-UMB-2021-00000005";
                 string Action = ActionName;
                 string User = LoginName;
                 string POnum = LID;
-                string DispayPO = DisplayNo.Replace('@', '/');
+                 string DispayPO = DisplayNo.Replace('@', '/'); 
                // string DispayPO = DisplayNo.Insert(2, "/").Insert(5, "-").Insert(8, "/");
                 string footer = "DOCUMENT ARE SIGNED DIGITALLY, HENCE NO PHYSICAL SIGNATURE REQUIRED.";
                 int B_P = Position;
@@ -51,7 +52,8 @@ namespace AparPDFAPI.Controllers
                 if (designation == "Creator")
                 {
                     designationName = ConfigurationManager.AppSettings["Creator"];
-                }else if (designation == "Approver")
+                }
+                else if (designation == "Approver")
                 {
                     designationName = ConfigurationManager.AppSettings["Approver"];
                 }
@@ -124,7 +126,7 @@ namespace AparPDFAPI.Controllers
 
                         /************End************/
 
-                        var subsitelistdata = context.Web.Lists.GetByTitle("ARDocument");
+                        var subsitelistdata = context.Web.Lists.GetByTitle("ARDocument123");
 
 
                         // var itemss = subsitelistdata.GetItems(CamlQuery.CreateAllItemsQuery());
@@ -182,7 +184,7 @@ namespace AparPDFAPI.Controllers
                             //var FileType = oListItem1["FileType"].ToString();
                             docnm = oListItem1["FileLeafRef"].ToString();
                             var docId = oListItem1["ID"].ToString();
-                         //   var FileTypename = oListItem1["FileType"].ToString();
+                            //   var FileTypename = oListItem1["FileType"].ToString();
                             string ImgName = docnm;
                             int lastIndex = ImgName.LastIndexOf('.');
                             var Filenm = ImgName.Substring(0, lastIndex);
@@ -202,7 +204,7 @@ namespace AparPDFAPI.Controllers
                                     document.Open();
 
                                     //document.Add(new Paragraph("Hello World"));
-                                    var docimg = WSiteName+ "/ARDocument/" + docnm + "";
+                                    var docimg = WSiteName + "/ARDocument/" + docnm + "";
                                     var docimg1 = WSiteName + "/ARDocument/" + Filenm + ".pdf";
                                     var fileimagetype = context.Web.GetFileByServerRelativeUrl(docimg);
 
@@ -226,7 +228,7 @@ namespace AparPDFAPI.Controllers
 
                                     //sigimage1.HasAbsolutePosition();
                                     document.Add(sigimage1);
-                                    
+
 
                                     document.Close();
 
@@ -285,7 +287,7 @@ namespace AparPDFAPI.Controllers
 
                             #endregion
 
-                             
+
 
                             int[] PO_X = new int[10];
                             int[] PO_Y = new int[10];
@@ -293,7 +295,7 @@ namespace AparPDFAPI.Controllers
                             int[] OT_X = new int[10];
                             int[] OT_Y = new int[10];
 
-                          
+
                             PO_X[0] = Xvalue; PO_Y[0] = B_P + 60;
                             PO_X[1] = Xvalue; PO_Y[1] = B_P + 18;
                             PO_X[2] = Xvalue; PO_Y[2] = B_P + 12;
@@ -356,16 +358,16 @@ namespace AparPDFAPI.Controllers
 
                                     if (CurrentApprover == 6)
                                     {
-                                         
-                                            pbover = stamper.GetOverContent(n);
-                                            var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
 
-                                            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
-                                            logo.SetAbsolutePosition(15, 780);
-                                            pbover.AddImage(logo);
-                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+                                        pbover = stamper.GetOverContent(n);
+                                        var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
 
-                                        
+                                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
+                                        logo.SetAbsolutePosition(15, 780);
+                                        pbover.AddImage(logo);
+                                        ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+
+
                                     }
 
                                     pbover = stamper.GetOverContent(n);
@@ -379,7 +381,7 @@ namespace AparPDFAPI.Controllers
 
 
                                     ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
-                                    if(ActionName != "Rejected")
+                                    if (ActionName != "Rejected")
                                     {
                                         iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
                                         sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
@@ -402,7 +404,7 @@ namespace AparPDFAPI.Controllers
                                     }
 
 
-                                   
+
 
                                     PdfContentByte pbunder = stamper.GetUnderContent(n);
 
@@ -411,15 +413,15 @@ namespace AparPDFAPI.Controllers
                                         int m = n;
                                         PdfContentByte pbover1 = stamper.GetOverContent(m);
                                         var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
-                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext + (m-1) , lable)), 450, 790, 0);
+                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext + (m - 1), lable)), 450, 790, 0);
 
                                         PdfContentByte pbunder1 = stamper.GetUnderContent(m);
                                     }
 
                                     stamper.Close();
 
-                                    
-                                   
+
+
 
                                     #region Update PDF Code
                                     byte[] array1 = outputStream.ToArray();
@@ -448,7 +450,7 @@ namespace AparPDFAPI.Controllers
             }
             catch (Exception ex)
             {
-                returnmessage = ex.ToString ();
+                returnmessage = ex.ToString();
             }
 
 

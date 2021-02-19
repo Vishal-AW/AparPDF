@@ -53,10 +53,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.dll">
-      <publishTime>02/02/2021 14:40:10</publishTime>
+      <publishTime>02/19/2021 16:39:55</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.pdb">
-      <publishTime>02/02/2021 14:40:10</publishTime>
+      <publishTime>02/19/2021 16:39:55</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>07/08/2020 18:40:35</publishTime>

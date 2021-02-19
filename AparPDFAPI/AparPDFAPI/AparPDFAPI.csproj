@@ -201,6 +201,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ARController.cs" />
+    <Compile Include="Controllers\DevARController.cs" />
     <Compile Include="Controllers\ExpensePDFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ITAssestsPDFController.cs" />
