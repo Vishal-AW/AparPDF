@@ -53,19 +53,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.dll">
-      <publishTime>02/19/2021 16:39:55</publishTime>
+      <publishTime>03/11/2021 19:29:21</publishTime>
     </File>
     <File Include="bin/AparPDFAPI.pdb">
-      <publishTime>02/19/2021 16:39:55</publishTime>
+      <publishTime>03/11/2021 19:29:21</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
     <File Include="bin/Microsoft.Identity.Client.dll">
-      <publishTime>08/05/2020 10:15:54</publishTime>
+      <publishTime>05/08/2020 10:15:54</publishTime>
     </File>
     <File Include="bin/microsoft.identitymodel.dll">
-      <publishTime>07/09/2019 17:24:44</publishTime>
+      <publishTime>09/07/2019 17:24:44</publishTime>
     </File>
     <File Include="bin/Microsoft.Office.Client.Policy.dll">
       <publishTime>07/17/2020 00:24:42</publishTime>
@@ -119,7 +119,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/08/2020 18:40:36</publishTime>
     </File>
     <File Include="bin/SharePointPnP.IdentityModel.Extensions.dll">
-      <publishTime>06/11/2018 09:02:06</publishTime>
+      <publishTime>11/06/2018 09:02:06</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>07/08/2020 18:40:36</publishTime>
@@ -230,7 +230,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/08/2020 18:40:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/25/2021 13:17:37</publishTime>
+      <publishTime>03/11/2021 19:29:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -820,9 +820,22 @@ namespace AparPDFAPI.Controllers
                                             {
                                                 PdfContentByte pbover = stamper.GetOverContent(i);
                                                 ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
-                                                iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                                sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
-                                                pbover.AddImage(sigimage);
+
+                                                //iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                                //sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                                //pbover.AddImage(sigimage);
+
+                                                if (ActionName != "Reject")
+                                                {
+                                                    iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                                    sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                                    pbover.AddImage(sigimage);
+                                                }
+                                                else
+                                                {
+                                                    ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("Rejected", FontFactory.GetFont("Arial", 20, Color.BLACK))), PO_X[1], PO_Y[1] + 10, 0);
+                                                }
+
                                                 ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
                                                 ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
                                                 if (UserType == "Head")
@@ -838,9 +851,22 @@ namespace AparPDFAPI.Controllers
                                         {
                                             PdfContentByte pbover = stamper.GetOverContent(n);
                                             ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(PurchaseText, blackListTextFont)), PO_X[0], PO_Y[0], 0);
-                                            iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                            sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
-                                            pbover.AddImage(sigimage);
+
+                                            //iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                            //sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                            //pbover.AddImage(sigimage);
+
+                                            if (ActionName != "Reject")
+                                            {
+                                                iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                                sigimage.SetAbsolutePosition(PO_X[1], PO_Y[1]);
+                                                pbover.AddImage(sigimage);
+                                            }
+                                            else
+                                            {
+                                                ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("Rejected", FontFactory.GetFont("Arial", 20, Color.BLACK))), PO_X[1], PO_Y[1] + 10, 0);
+                                            }
+
                                             ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[2], PO_Y[2], 0);
                                             ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[3], PO_Y[3], 0);
                                             if (UserType == "Head")
@@ -860,9 +886,22 @@ namespace AparPDFAPI.Controllers
                                         PdfContentByte pbover = stamper.GetOverContent(n);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(DispayPO, blackListTextFont)), PO_X[0], PO_Y[0], 0);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(ActionName, blackListTextFont)), PO_X[1], PO_Y[1], 0);
-                                        iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
-                                        sigimage.SetAbsolutePosition(PO_X[2], PO_Y[2]);
-                                        pbover.AddImage(sigimage);
+
+                                        //iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                        //sigimage.SetAbsolutePosition(PO_X[2], PO_Y[2]);
+                                        //pbover.AddImage(sigimage);
+
+                                        if (ActionName != "Reject")
+                                        {
+                                            iTextSharp.text.Image sigimage = iTextSharp.text.Image.GetInstance(imgarray);
+                                            sigimage.SetAbsolutePosition(PO_X[2], PO_Y[2]);
+                                            pbover.AddImage(sigimage);
+                                        }
+                                        else
+                                        {
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("Rejected", FontFactory.GetFont("Arial", 20, Color.BLACK))), PO_X[2], PO_Y[2] + 10, 0);
+                                        }
+
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(User, blackListTextFont)), PO_X[3], PO_Y[3], 0);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Comments, blackListTextFont)), PO_X[4], PO_Y[4], 0);
                                         ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk(Convert.ToString(dateTime), blackListTextFont)), PO_X[5], PO_Y[5], 0);

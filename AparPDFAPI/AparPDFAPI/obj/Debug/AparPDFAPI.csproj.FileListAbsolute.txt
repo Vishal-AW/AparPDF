@@ -170,3 +170,4 @@ F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Debug\AparPDFAPI.csproj.CoreC
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Debug\AparPDFAPI.csproj.CopyComplete
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Debug\AparPDFAPI.dll
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Debug\AparPDFAPI.pdb
+F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\QRCoder.dll

@@ -349,7 +349,7 @@ namespace AparPDFAPI.Controllers
                                             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
                                             logo.SetAbsolutePosition(15, 780);
                                             pbover.AddImage(logo);
-                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 445, 780, 0);
 
                                         }
                                     }
@@ -363,7 +363,7 @@ namespace AparPDFAPI.Controllers
                                             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(imgarrayLogo);
                                             logo.SetAbsolutePosition(15, 780);
                                             pbover.AddImage(logo);
-                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 450, 780, 0);
+                                            ColumnText.ShowTextAligned(pbover, Element.ALIGN_LEFT, new Phrase(new Chunk("AR refrence no " + DispayPO, lable)), 445, 780, 0);
 
                                         
                                     }
@@ -411,7 +411,7 @@ namespace AparPDFAPI.Controllers
                                         int m = n;
                                         PdfContentByte pbover1 = stamper.GetOverContent(m);
                                         var lable = FontFactory.GetFont("Arial", 8, Color.BLACK);
-                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext + (m-1) , lable)), 450, 790, 0);
+                                        ColumnText.ShowTextAligned(pbover1, Element.ALIGN_LEFT, new Phrase(new Chunk(Nextpagetext + (m-1) , lable)), 445, 790, 0);
 
                                         PdfContentByte pbunder1 = stamper.GetUnderContent(m);
                                     }

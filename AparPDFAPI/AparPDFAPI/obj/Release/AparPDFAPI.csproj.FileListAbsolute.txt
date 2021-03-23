@@ -170,3 +170,4 @@ F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Deploymen
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\System.Web.WebPages.Razor.xml
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\Antlr3.Runtime.pdb
 F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\obj\Release\AparPDFAPI.csproj.CopyComplete
+F:\Apar Solution\AparPDF\AparPDFAPI\AparPDFAPI\bin\QRCoder.dll
