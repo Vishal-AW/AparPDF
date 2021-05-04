@@ -29,6 +29,8 @@ namespace AparPDFAPI.Core.Utilities
 {
     internal static class TokenHelper
     {
+
+       
 #region public fields
 
         /// <summary>
@@ -246,7 +248,7 @@ namespace AparPDFAPI.Core.Utilities
             {
                 targetRealm = Realm;
             }
-
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             string resource = GetFormattedPrincipal(targetPrincipalName, targetHost, targetRealm);
             string clientId = GetFormattedPrincipal(ClientId, null, targetRealm);
 
@@ -592,7 +594,7 @@ namespace AparPDFAPI.Core.Utilities
         {
             WebRequest request = WebRequest.Create(targetApplicationUri.ToString().TrimEnd(new[] { '/' }) + "/_vti_bin/client.svc");
             request.Headers.Add("Authorization: Bearer ");
-
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             try
             {
                 using (request.GetResponse())

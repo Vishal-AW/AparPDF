@@ -42,7 +42,7 @@ namespace AparPDFAPI.Controllers
 
             string login = "sp.admin@apar.com"; //give your username here  
             string PurchaseText = ConfigurationManager.AppSettings["PurchaseText"];
-
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
             using (var contextimage = new ClientContext("https://aparindltd.sharepoint.com"))
             {
