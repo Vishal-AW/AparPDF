@@ -42,7 +42,7 @@ namespace AparPDFAPI.Controllers
 
             string login = "sp.admin@apar.com"; //give your username here  
            string PurchaseText = ConfigurationManager.AppSettings["PurchaseText"];
-
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
             using (var contextimage = new ClientContext("https://aparindltd.sharepoint.com"))
             {
@@ -56,7 +56,7 @@ namespace AparPDFAPI.Controllers
 
                     #region Get Data From List
                     //string password = "zpsllhcvdfbfhgmk";
-                    string password = "kzqxvzgmkgwmpjmp";
+                    string password = ConfigurationManager.AppSettings["Password"]; //"fjfcqqhfcbkcmdtr";
                     SecureString sec_pass = new SecureString();
                     Array.ForEach(password.ToArray(), sec_pass.AppendChar);
                     sec_pass.MakeReadOnly();
@@ -94,11 +94,12 @@ namespace AparPDFAPI.Controllers
 
                    // var itemss = subsitelistdata.GetItems(CamlQuery.CreateAllItemsQuery());
                     CamlQuery query1 = new CamlQuery();
-                   
+
                     //query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='FALSE'/><Value Type='Lookup'>"+POnum+"</Value></Eq></Where></Query></view>";
 
-                    query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='TRUE'/><Value Type='Lookup'>" + POnum + "</Value></Eq></Where></Query></view>";
-                    
+                    // query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='TRUE'/><Value Type='Lookup'>" + POnum + "</Value></Eq></Where></Query></view>";
+                    query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='TRUE'/><Value Type='Lookup'>" + POnum + "</Value></Eq></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy></Query><RowLimit>5000</RowLimit></view>";
+
                     ListItemCollection listitem1 = subsitelistdata.GetItems(query1);
 
 

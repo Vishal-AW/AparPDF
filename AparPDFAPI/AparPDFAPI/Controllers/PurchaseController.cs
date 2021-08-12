@@ -21,6 +21,7 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Net.Sockets;
 using AparPDFAPI.Core.Utilities;
+ 
 
 namespace AparPDFAPI.Controllers
 {
@@ -30,7 +31,8 @@ namespace AparPDFAPI.Controllers
         [Route("api/PDFImageNew/GetPDFGenrate/{ActionName}/{LoginName}/{EmailID}/{Comments}/{PONumber}/{PODisplayNo}/{UserType}/{letterheadType}/{POPageoption?}")]
         public string GetPDFMyAction(string ActionName, string LoginName, string EmailID, string Comments, string PONumber, string PODisplayNo, string UserType, string letterheadType,string POPageoption = "LastPage")
         {
-
+         //  
+            
             string Action = ActionName;
             string User = LoginName;
             string POnum = PONumber;
@@ -56,8 +58,8 @@ namespace AparPDFAPI.Controllers
 
                     #region Get Data From List
                     //string password = "zpsllhcvdfbfhgmk";
-                    string password = "kzqxvzgmkgwmpjmp";
-                    SecureString sec_pass = new SecureString();
+                    string password = ConfigurationManager.AppSettings["Password"];
+                        SecureString sec_pass = new SecureString();
                     Array.ForEach(password.ToArray(), sec_pass.AppendChar);
                     sec_pass.MakeReadOnly();
                     context.Credentials = new SharePointOnlineCredentials(login, sec_pass);
@@ -90,20 +92,27 @@ namespace AparPDFAPI.Controllers
                     /************End************/
 
                     var subsitelistdata = context.Web.Lists.GetByTitle("PurchaseDocuments");
+                        ListItemCollectionPosition itemPosition = null;
+                        ListItemCollection listitem1 = null;
+                        while (true)
+                        {
+                            // var itemss = subsitelistdata.GetItems(CamlQuery.CreateAllItemsQuery());
+                            CamlQuery query1 = new CamlQuery();
+                            query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='TRUE'/><Value Type='Lookup'>" + POnum + "</Value></Eq></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy></Query><RowLimit>5000</RowLimit></view>";
+
+                            listitem1 = subsitelistdata.GetItems(query1);
+
+                            context.Load(listitem1);
+                            context.ExecuteQuery();
+                            itemPosition = listitem1.ListItemCollectionPosition;
+
+                            if (itemPosition == null)
+                            {
+                                break; // TODO: might not be correct. Was : Exit While
+                            }
+                        }
 
 
-                    // var itemss = subsitelistdata.GetItems(CamlQuery.CreateAllItemsQuery());
-                    CamlQuery query1 = new CamlQuery();
-
-                    //query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='FALSE'/><Value Type='Lookup'>"+POnum+"</Value></Eq></Where></Query></view>";
-
-                    query1.ViewXml = "<View><Query><Where><Eq><FieldRef Name='POReferenceNumber' LookupId='TRUE'/><Value Type='Lookup'>" + POnum + "</Value></Eq></Where></Query></view>";
-
-                    ListItemCollection listitem1 = subsitelistdata.GetItems(query1);
-
-
-                    context.Load(listitem1);
-                    context.ExecuteQuery();
                     var docnm = "";
                     var path = "";
                     foreach (var oListItem1 in listitem1)
